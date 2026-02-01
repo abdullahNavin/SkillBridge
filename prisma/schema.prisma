@@ -14,21 +14,80 @@ datasource db {
 }
 
 model Category {
-  id          String  @id @default(uuid())
-  name        String  @unique
-  description String? @db.Text
+  id            String         @id @default(uuid())
+  name          String         @unique
+  description   String?        @db.Text
+  tutorProfiles TutorProfile[]
+}
+
+model TutorProfile {
+  id          String @id @default(uuid())
+  category_id String
+
+  bio               String?    @db.Text
+  rating            Float      @default(0)
+  userId            String     @unique
+  user              User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category          Category   @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  yearsOfExperience Int
+  hourlyRate        Decimal    @db.Decimal(10, 2)
+  qualifications    String?    @db.Text
+  availability      DateTime[]
+  subjects          String[]   @db.Text
+  isAvailable       Boolean    @default(false)
+  reviews           Review[]
+  bookings          Booking[]
+}
+
+model Review {
+  id             String   @id @default(uuid())
+  tutorProfileId String
+  userId         String
+  rating         Int
+  comment        String?  @db.Text
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  tutorProfile TutorProfile @relation(fields: [tutorProfileId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tutorProfileId])
+  @@index([userId])
+}
+
+model Booking {
+  id             String        @id @default(uuid())
+  tutorProfileId String
+  userId         String
+  schedule_start DateTime
+  schedule_end   DateTime
+  totalFee       Decimal       @db.Decimal(10, 2)
+  status         BookingStatus @default(PENDING)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  tutorProfile TutorProfile @relation(fields: [tutorProfileId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tutorProfileId])
+  @@index([userId])
 }
 
 model User {
-  id            String    @id
+  id            String        @id
   name          String
   email         String
-  emailVerified Boolean   @default(false)
+  emailVerified Boolean       @default(false)
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  role          UserRole      @default(STUDENT)
+  status        UserStatus    @default(ACTIVE)
   sessions      Session[]
   accounts      Account[]
+  tutorProfile  TutorProfile?
+  reviews       Review[]
+  bookings      Booking[]
 
   @@unique([email])
   @@map("user")
@@ -80,4 +139,23 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+// enum 
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum UserRole {
+  ADMIN
+  STUDENT
+  TUTOR
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
 }
