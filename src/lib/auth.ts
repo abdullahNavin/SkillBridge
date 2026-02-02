@@ -21,7 +21,9 @@ export const auth = betterAuth({
         provider: "postgresql",
     }),
     emailAndPassword: {
-        enabled: true
+        enabled: true,
+        autoSignIn: false,
+        // requireEmailVerification:true
     },
     trustedOrigins: [process.env.APP_URL || 'http://localhost:5000']
 });

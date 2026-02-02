@@ -1,0 +1,25 @@
+model Booking {
+    id             String        @id @default(uuid())
+    tutorProfileId String
+    userId         String
+    schedule_start DateTime
+    schedule_end   DateTime
+    totalFee       Decimal       @db.Decimal(10, 2)
+    status         BookingStatus @default(PENDING)
+    createdAt      DateTime      @default(now())
+    updatedAt      DateTime      @updatedAt
+
+    tutorProfile TutorProfile @relation(fields: [tutorProfileId], references: [id], onDelete: Cascade)
+    user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([tutorProfileId])
+    @@index([userId])
+}
+
+// enum 
+enum BookingStatus {
+    PENDING
+    CONFIRMED
+    CANCELLED
+    COMPLETED
+}
