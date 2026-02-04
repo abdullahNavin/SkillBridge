@@ -3,6 +3,7 @@ model TutorProfile {
     category_id       String?
     bio               String?    @db.Text
     rating            Float?     @default(0)
+    totalReviews      Int?       @default(0)
     userId            String     @unique
     user              User       @relation(fields: [userId], references: [id], onDelete: Cascade)
     category          Category?  @relation(fields: [category_id], references: [id], onDelete: Cascade)

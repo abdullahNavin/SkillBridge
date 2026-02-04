@@ -5,7 +5,13 @@ import { UserRole } from "../../types/user/userRole";
 
 const router: Router = Router()
 
-router.post('/', userAuth(UserRole.TUTOR), tutorController.createTutorProfile)
+router.post('/profile', userAuth(UserRole.TUTOR), tutorController.createTutorProfile)
+
+router.get('/dashboard', userAuth(UserRole.TUTOR), tutorController.getTutorDashboardData)
+
+router.get('/profile/:id', tutorController.getTutorProfile)
+
+router.get('/', tutorController.getAllTutors)
 
 
 export const tutorRoutes = router
