@@ -21,7 +21,20 @@ const updateCategory = async (data: Category) => {
     return result;
 }
 
+const getTutorProfileBycategoryId = async (categoryId: string) => {
+    const result = await prisma.category.findUnique({
+        where: {
+            id: categoryId
+        },
+        include: {
+            tutorProfiles: true
+        }
+    })
+    return result;
+}
+
 export const categoryService = {
     createCategory,
-    updateCategory
+    updateCategory,
+    getTutorProfileBycategoryId
 }

@@ -23,7 +23,19 @@ const updateCategory = async (req: Request, res: Response) => {
     }
 }
 
+const getTutorProfileBycategoryId = async (req: Request, res: Response) => {
+    try {
+        const categoryId = req.params.id as string
+
+        const result = await categoryService.getTutorProfileBycategoryId(categoryId)
+        res.status(200).json(result)
+    } catch (error: any) {
+        return res.status(500).json({ message: 'server side error', error: error.message })
+    }
+}
+
 export const categoryController = {
     createCategory,
-    updateCategory
+    updateCategory,
+    getTutorProfileBycategoryId
 }

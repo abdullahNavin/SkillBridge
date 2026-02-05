@@ -7,5 +7,6 @@ const router: Router = Router()
 
 router.post('/', userAuth(UserRole.ADMIN), categoryController.createCategory)
 router.patch('/', userAuth(UserRole.ADMIN), categoryController.updateCategory)
+router.get('/:id', categoryController.getTutorProfileBycategoryId)
 
 export const categoryRoutes = router
