@@ -1,16 +1,16 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { userService } from "./user.service";
 
-const getUsers = async (req: Request, res: Response) => {
+const getUsers = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const result = await userService.getUsers()
         res.status(200).json(result)
     } catch (error: any) {
-        return res.status(500).json({ message: 'server side error', error: error.message })
+        next(error)
     }
 }
 
-const getUserById = async (req: Request, res: Response) => {
+const getUserById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.params.id as string
 
@@ -22,7 +22,7 @@ const getUserById = async (req: Request, res: Response) => {
         res.status(200).json(result)
 
     } catch (error: any) {
-        return res.status(500).json({ message: 'server side error', error: error.message })
+        next(error)
     }
 }
 

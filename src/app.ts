@@ -7,6 +7,8 @@ import { categoryRoutes } from './modules/category/category.routes';
 import { bookingRoutes } from './modules/booking/booking.routes';
 import { studentRoutes } from './modules/student/student.routes';
 import { reviewRoutes } from './modules/reviews/reviews.routes';
+import { notFound } from './middleware/notFound';
+import errorHandler from './middleware/globalErrorHandler';
 
 const app: Application = express()
 
@@ -25,5 +27,8 @@ app.use('/category', categoryRoutes)
 app.use('/booking', bookingRoutes)
 app.use('/student', studentRoutes)
 app.use('/review', reviewRoutes)
+
+app.use(notFound)
+app.use(errorHandler)
 
 export default app

@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { tutorService } from "./tutor.service";
 
 // TODO: UPDATE profile
-const createTutorProfile = async (req: Request, res: Response) => {
+const createTutorProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = req.body
 
@@ -19,22 +19,22 @@ const createTutorProfile = async (req: Request, res: Response) => {
         res.status(200).json(result)
     }
     catch (error: any) {
-        return res.status(500).json({ message: 'server side error', error: error.message })
+        next(error)
     }
 }
 
-const getTutorProfile = async (req: Request, res: Response) => {
+const getTutorProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.params.id as string
         const result = await tutorService.getTutorProfile(id)
 
         res.status(200).json(result)
     } catch (error: any) {
-        return res.status(500).json({ message: 'server side error', error: error.message })
+        next(error)
     }
 }
 
-const getTutorDashboardData = async (req: Request, res: Response) => {
+const getTutorDashboardData = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.user?.id as string
 
@@ -42,11 +42,11 @@ const getTutorDashboardData = async (req: Request, res: Response) => {
 
         res.status(200).json(result)
     } catch (error: any) {
-        return res.status(500).json({ message: 'server side error', error: error.message })
+        next(error)
     }
 }
 
-const getAllTutors = async (req: Request, res: Response) => {
+const getAllTutors = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const search = req.query.search as string
         const rating = Number(req.query.rating)
@@ -61,11 +61,11 @@ const getAllTutors = async (req: Request, res: Response) => {
 
         res.status(200).json(result)
     } catch (error: any) {
-        return res.status(500).json({ message: 'server side error', error: error.message })
+        next(error)
     }
 }
 
-const updateTutorProfile = async (req: Request, res: Response) => {
+const updateTutorProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
         // const id = req.user?.id as string
         const data = req.body
@@ -77,7 +77,7 @@ const updateTutorProfile = async (req: Request, res: Response) => {
 
         res.status(200).json(result)
     } catch (error: any) {
-        return res.status(500).json({ message: 'server side error', error: error.message })
+        next(error)
     }
 }
 
