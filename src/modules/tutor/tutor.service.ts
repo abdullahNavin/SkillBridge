@@ -27,7 +27,7 @@ const createTutorProfile = async (
     })
     return result;
 }
-// TODO reating , review, booking
+
 const getTutorProfile = async (id: string) => {
     const result = await prisma.tutorProfile.findUnique({
         where: {
@@ -40,7 +40,7 @@ const getTutorProfile = async (id: string) => {
     })
     return result;
 }
-// TODO
+
 const getTutorDashboardData = async (id: string) => {
     const result = await prisma.tutorProfile.findUnique({
         where: {
@@ -54,13 +54,15 @@ const getTutorDashboardData = async (id: string) => {
     return result;
 }
 
-// TODO: set name in tutorp schema
+
 const getAllTutors = async (payload: searchQuery) => {
     const { search, rating, price } = payload
+    const lowerCaseSub = search.toLocaleLowerCase()
+
     const where: any = {}
-    if (search) {
+    if (search?.trim()) {
         where.subjects = {
-            has: search
+            has: lowerCaseSub
         }
     }
     if (!isNaN(rating)) {
@@ -80,21 +82,11 @@ const getAllTutors = async (payload: searchQuery) => {
         }
     })
 
-    //     const result = await prisma.$queryRaw`
-    //   SELECT *
-    //   FROM "TutorProfile"
-    //   WHERE EXISTS (
-    //     SELECT 1
-    //     FROM unnest("subjects") s
-    //     WHERE LOWER(s) LIKE LOWER(${`%${search}%`})
-    //   )
-    //   AND (${rating} IS NULL OR rating >= ${rating})
-    //   AND (${price} IS NULL OR "hourlyRate" <= ${price})
-    //   ORDER BY "hourlyRate" ASC
-    // `
-
     return result
 }
+
+// TODO:update tutor profile and query for category
+// TODO:in bookin calculate totall price
 
 export const tutorService = {
     createTutorProfile,
