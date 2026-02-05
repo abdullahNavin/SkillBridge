@@ -5,12 +5,17 @@ import { tutorService } from "./tutor.service";
 const createTutorProfile = async (req: Request, res: Response) => {
     try {
         const data = req.body
+
         const addname = req.user?.name as string
         data.name = addname
         const addImage = req.user?.image as string
         data.image = addImage
+
         const userId = req.user?.id as string
-        const result = await tutorService.createTutorProfile(data, userId)
+
+        const { name, category_id, bio, image, yearsOfExperience, hourlyRate, qualifications, availability, subjects } = data
+
+        const result = await tutorService.createTutorProfile({ name, category_id, bio, image, yearsOfExperience, hourlyRate, qualifications, availability, subjects }, userId)
         res.status(200).json(result)
     }
     catch (error: any) {
@@ -60,10 +65,26 @@ const getAllTutors = async (req: Request, res: Response) => {
     }
 }
 
+const updateTutorProfile = async (req: Request, res: Response) => {
+    try {
+        // const id = req.user?.id as string
+        const data = req.body
+        const { name, category_id, bio, image, yearsOfExperience, hourlyRate, qualifications, availability, subjects } = data
+
+        const authorId = req.user?.id as string
+
+        const result = await tutorService.updateTutorProfile({ name, category_id, bio, image, yearsOfExperience, hourlyRate, qualifications, availability, subjects }, authorId)
+
+        res.status(200).json(result)
+    } catch (error: any) {
+        return res.status(500).json({ message: 'server side error', error: error.message })
+    }
+}
 
 export const tutorController = {
     createTutorProfile,
     getTutorProfile,
     getTutorDashboardData,
-    getAllTutors
+    getAllTutors,
+    updateTutorProfile
 }

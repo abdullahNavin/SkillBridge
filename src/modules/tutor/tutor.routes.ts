@@ -13,5 +13,9 @@ router.get('/profile/:id', tutorController.getTutorProfile)
 
 router.get('/', tutorController.getAllTutors)
 
+router.patch('/update',
+    userAuth(UserRole.TUTOR),
+    tutorController.updateTutorProfile)
+
 
 export const tutorRoutes = router

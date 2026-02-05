@@ -2,12 +2,26 @@ import { TutorProfile } from "../../../generated/prisma/client"
 import { prisma } from "../../lib/prisma"
 import { searchQuery } from "../../types/tutor/searchQuery"
 
+interface TutorPDataType {
+    name: string | null;
+
+    category_id: string | null;
+    bio: string | null;
+    image: string | null;
+
+    yearsOfExperience: number | null;
+    hourlyRate: number;
+    qualifications: string | null;
+    availability: Date[];
+    subjects: string[];
+}
+
+
 const createTutorProfile = async (
-    data: Omit<TutorProfile, "id" | "userId" | "rating">,
+    data: TutorPDataType,
     authorId: string) => {
     const lowerCaseSub = data.subjects.map(sub => sub.toLowerCase())
 
-    console.log(lowerCaseSub);
     data.subjects = lowerCaseSub
     const isProfileExist = await prisma.tutorProfile.findUnique({
         where: {
@@ -87,8 +101,25 @@ const getAllTutors = async (payload: searchQuery) => {
 
 // TODO:update oparetion for tutor profile
 
-const updateTutorProfile = async () => {
-    console.log('updatett');
+const updateTutorProfile = async (data: TutorPDataType, authorId: string) => {
+    const result = await prisma.$transaction(async (tx) => {
+        const isTutorProfileExist = await tx.tutorProfile.findFirst({
+            where: {
+                userId: authorId
+            }
+        })
+        if (!isTutorProfileExist) {
+            return { message: 'Tutor profile not found' }
+        }
+        const updatedProfile = await tx.tutorProfile.update({
+            where: {
+                userId: authorId
+            },
+            data
+        })
+        return updatedProfile
+    })
+    return result
 }
 
 export const tutorService = {
@@ -96,5 +127,6 @@ export const tutorService = {
     getTutorProfile,
     getTutorDashboardData,
     getAllTutors,
+    updateTutorProfile
 
 }
