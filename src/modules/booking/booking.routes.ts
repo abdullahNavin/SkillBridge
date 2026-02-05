@@ -9,4 +9,12 @@ router.post('/',
     userAuth(UserRole.STUDENT, UserRole.ADMIN),
     bookingController.createBooking)
 
+router.get('/',
+    userAuth(UserRole.ADMIN),
+    bookingController.viewAllBooking)
+
+router.get('/student-bookings',
+    userAuth(UserRole.STUDENT),
+    bookingController.viewStudentBooking)
+
 export const bookingRoutes = router

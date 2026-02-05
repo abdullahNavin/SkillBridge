@@ -85,12 +85,16 @@ const getAllTutors = async (payload: searchQuery) => {
     return result
 }
 
-// TODO:update tutor profile and query for category
-// TODO:in bookin calculate totall price
+// TODO:update oparetion for tutor profile
+
+const updateTutorProfile = async () => {
+    console.log('updatett');
+}
 
 export const tutorService = {
     createTutorProfile,
     getTutorProfile,
     getTutorDashboardData,
-    getAllTutors
+    getAllTutors,
+
 }
