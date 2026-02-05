@@ -1,9 +1,14 @@
 import { Request, Response } from "express";
 import { tutorService } from "./tutor.service";
 
+// TODO: UPDATE profile
 const createTutorProfile = async (req: Request, res: Response) => {
     try {
         const data = req.body
+        const addname = req.user?.name as string
+        data.name = addname
+        const addImage = req.user?.image as string
+        data.image = addImage
         const userId = req.user?.id as string
         const result = await tutorService.createTutorProfile(data, userId)
         res.status(200).json(result)
@@ -38,7 +43,16 @@ const getTutorDashboardData = async (req: Request, res: Response) => {
 
 const getAllTutors = async (req: Request, res: Response) => {
     try {
-        const result = await tutorService.getAllTutors()
+        const search = req.query.search as string
+        const rating = Number(req.query.rating)
+        const price = Number(req.query.price)
+        // console.log(req.user?.role);
+        const payload = {
+            search,
+            rating,
+            price
+        }
+        const result = await tutorService.getAllTutors(payload)
 
         res.status(200).json(result)
     } catch (error: any) {

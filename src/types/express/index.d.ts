@@ -10,6 +10,7 @@ declare global {
             user?: {
                 id: string
                 name: string | null
+                image: string | null | undefined
                 email: string
                 role: UserRole
                 status: StatusType

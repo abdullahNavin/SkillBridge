@@ -2,6 +2,8 @@ model TutorProfile {
     id                String     @id @default(uuid())
     category_id       String?
     bio               String?    @db.Text
+    name              String?
+    image             String?
     rating            Float?     @default(0)
     totalReviews      Int?       @default(0)
     userId            String     @unique

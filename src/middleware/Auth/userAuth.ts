@@ -22,6 +22,7 @@ export const userAuth = (...roles: UserRole[]) => {
             req.user = {
                 id: session?.user.id,
                 name: session?.user.name,
+                image: session?.user.image,
                 email: session?.user.email,
                 role: session?.user.role as UserRole,
                 status: session?.user.status as StatusType,

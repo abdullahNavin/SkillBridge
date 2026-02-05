@@ -6,6 +6,7 @@ import { tutorRoutes } from './modules/tutor/tutor.routes';
 import { categoryRoutes } from './modules/category/category.routes';
 import { bookingRoutes } from './modules/booking/booking.routes';
 import { studentRoutes } from './modules/student/student.routes';
+import { reviewRoutes } from './modules/reviews/reviews.routes';
 
 const app: Application = express()
 
@@ -23,5 +24,6 @@ app.use('/tutor', tutorRoutes)
 app.use('/category', categoryRoutes)
 app.use('/booking', bookingRoutes)
 app.use('/student', studentRoutes)
+app.use('/review', reviewRoutes)
 
 export default app
