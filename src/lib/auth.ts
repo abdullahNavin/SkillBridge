@@ -20,6 +20,14 @@ export const auth = betterAuth({
     database: prismaAdapter(prisma, {
         provider: "postgresql",
     }),
+    socialProviders: {
+        google: {
+            prompt: 'select_account consent',
+            accessType: 'offline',
+            clientId: process.env.CLIENT_ID || '',
+            clientSecret: process.env.CLIENT_SECRET || ''
+        }
+    },
     emailAndPassword: {
         enabled: true,
         autoSignIn: false,

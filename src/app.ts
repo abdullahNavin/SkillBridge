@@ -9,6 +9,7 @@ import { studentRoutes } from './modules/student/student.routes';
 import { reviewRoutes } from './modules/reviews/reviews.routes';
 import { notFound } from './middleware/notFound';
 import errorHandler from './middleware/globalErrorHandler';
+import cors from 'cors'
 
 const app: Application = express()
 
@@ -17,6 +18,12 @@ app.use(express.json())
 app.get('/', (req, res) => {
     res.send('skillbridge server is runing')
 })
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+    })
+)
 
 app.all('/api/auth/*splat', toNodeHandler(auth));
 
