@@ -30,7 +30,7 @@ export const auth = betterAuth({
     },
     emailAndPassword: {
         enabled: true,
-        autoSignIn: false,
+        autoSignIn: true,
         // requireEmailVerification:true
     },
     trustedOrigins: [process.env.APP_URL || 'http://localhost:5000']

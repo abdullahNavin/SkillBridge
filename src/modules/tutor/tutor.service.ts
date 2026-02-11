@@ -99,7 +99,6 @@ const getAllTutors = async (payload: searchQuery) => {
     return result
 }
 
-// TODO:update oparetion for tutor profile
 
 const updateTutorProfile = async (data: TutorPDataType, authorId: string) => {
     const result = await prisma.$transaction(async (tx) => {

@@ -34,8 +34,18 @@ const getTutorProfileBycategoryId = async (req: Request, res: Response, next: Ne
     }
 }
 
+const getAllCategories = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const result = await categoryService.getAllCategories()
+        res.status(200).json(result)
+    } catch (error: any) {
+        next(error)
+    }
+}
+
 export const categoryController = {
     createCategory,
     updateCategory,
-    getTutorProfileBycategoryId
+    getTutorProfileBycategoryId,
+    getAllCategories
 }
