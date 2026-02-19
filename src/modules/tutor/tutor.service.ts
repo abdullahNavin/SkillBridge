@@ -70,25 +70,29 @@ const getTutorDashboardData = async (id: string) => {
 
 
 const getAllTutors = async (payload: searchQuery) => {
-    const { search, rating, price } = payload
-    const lowerCaseSub = search.toLocaleLowerCase()
+    const { search, rating, price, category_id } = payload
+    const lowerCaseSub = search?.toLowerCase()
 
     const where: any = {}
     if (search?.trim()) {
         where.subjects = {
-            has: lowerCaseSub
+            has: lowerCaseSub?.trim()
         }
     }
-    if (!isNaN(rating)) {
+    if (rating !== undefined && !isNaN(rating)) {
         where.rating = {
             gte: rating
         }
     }
-    if (!isNaN(price)) {
+    if (price !== undefined && !isNaN(price)) {
         where.hourlyRate = {
             lte: price
         }
     }
+    if (category_id?.trim()) {
+        where.category_id = category_id.trim()
+    }
+    console.log(where);
     const result = await prisma.tutorProfile.findMany({
         where,
         orderBy: {

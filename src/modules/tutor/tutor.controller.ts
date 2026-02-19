@@ -51,11 +51,15 @@ const getAllTutors = async (req: Request, res: Response, next: NextFunction) => 
         const search = req.query.search as string
         const rating = Number(req.query.rating)
         const price = Number(req.query.price)
+        const category_id = req.query.category_id as string
+
         // console.log(req.user?.role);
+
         const payload = {
             search,
             rating,
-            price
+            price,
+            category_id
         }
         const result = await tutorService.getAllTutors(payload)
 

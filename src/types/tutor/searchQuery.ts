@@ -1,5 +1,6 @@
 export interface searchQuery {
-    search: string;
-    rating: number;
-    price: number;
+    search?: string;
+    rating?: number;
+    price?: number;
+    category_id?: string;
 }
