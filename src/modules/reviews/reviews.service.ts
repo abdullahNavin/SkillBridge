@@ -3,7 +3,7 @@ import { prisma } from "../../lib/prisma"
 
 const createReview =
     async (data: Omit<Review, "id" | "userId" | "updatedAt" | "createdAt">,
-        studentId: string) => {
+        studentId: string, studentName: string, studentImg: string | null) => {
 
         const result = await prisma.$transaction(async (tx) => {
             const booking = await tx.booking.findFirst({
@@ -21,7 +21,11 @@ const createReview =
             const result = await tx.review.create({
                 data: {
                     ...data,
-                    userId: studentId
+                    userId: studentId,
+                    studentName,
+                    studentImg
+
+
                 }
             })
             const stats = await tx.review.aggregate({

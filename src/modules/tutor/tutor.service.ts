@@ -92,7 +92,7 @@ const getAllTutors = async (payload: searchQuery) => {
     if (category_id?.trim()) {
         where.category_id = category_id.trim()
     }
-    console.log(where);
+
     const result = await prisma.tutorProfile.findMany({
         where,
         orderBy: {
