@@ -48,13 +48,15 @@ const viewAllbooking = async () => {
 }
 
 const viewStudentBooking = async (studentId: string) => {
-    const result = await prisma.user.findUnique({
+    const result = await prisma.booking.findMany({
         where: {
-            id: studentId
+            userId: studentId,
+
         },
-        include: {
-            bookings: true
+        orderBy: {
+            schedule_start: 'asc'
         }
+
     })
     return result;
 }

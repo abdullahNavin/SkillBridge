@@ -14,7 +14,7 @@ router.get('/',
     bookingController.viewAllBooking)
 
 router.get('/student-bookings',
-    userAuth(UserRole.STUDENT),
+    userAuth(UserRole.STUDENT, UserRole.TUTOR),
     bookingController.viewStudentBooking)
 
 export const bookingRoutes = router
