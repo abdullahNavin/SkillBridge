@@ -1,9 +1,12 @@
 import { prisma } from "../../lib/prisma"
 
 interface BookingDataType {
+    tutorImg: string;
     tutorProfileId: string;
     schedule_start: Date;
     schedule_end: Date;
+    tutorQualification: string;
+    tutorName: string
 }
 
 const createBooking = async (data: BookingDataType,
@@ -24,7 +27,6 @@ const createBooking = async (data: BookingDataType,
         const durationInHours =
             (end.getTime() - start.getTime()) / (1000 * 60 * 60)
 
-        // console.log(durationInHours);
 
         const totalFee = durationInHours * Number(hourlyRate?.hourlyRate)
         // console.log(totalFee);

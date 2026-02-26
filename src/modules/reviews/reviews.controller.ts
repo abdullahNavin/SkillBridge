@@ -3,12 +3,22 @@ import { reviewService } from "./reviews.service";
 
 const createReview = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const data = req.body
+
         const studentId = req.user?.id as string
         const studentName = req.user?.name as string
         const studentImg = req.user?.image as string | null
 
-        const result = await reviewService.createReview(data, studentId, studentName, studentImg)
+        const { tutorProfileId, comment, rating } = req.body
+
+        const ReviewData = {
+            tutorProfileId,
+            comment,
+            rating: rating > 5 ? 5 : rating,
+            studentId,
+            studentName,
+            studentImg
+        }
+        const result = await reviewService.createReview(ReviewData)
 
         res.status(200).json(result)
     } catch (error: any) {

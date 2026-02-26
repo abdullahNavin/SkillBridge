@@ -4,11 +4,11 @@ import { bookingService } from "./booking.service";
 const createBooking = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const Bodydata = req.body
-        const { tutorProfileId, schedule_start, schedule_end } = Bodydata
+        const { tutorProfileId, schedule_start, schedule_end, tutorImg, tutorQualification, tutorName } = Bodydata
 
         const studentId = req.user?.id as string
 
-        const result = await bookingService.createBooking({ tutorProfileId, schedule_start, schedule_end }, studentId)
+        const result = await bookingService.createBooking({ tutorProfileId, schedule_start, schedule_end, tutorImg, tutorQualification, tutorName }, studentId)
         res.status(200).json(result)
     } catch (error: any) {
         next(error)
