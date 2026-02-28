@@ -34,9 +34,7 @@ const createBooking = async (data: BookingDataType,
         const durationInHours =
             (end.getTime() - start.getTime()) / (1000 * 60 * 60)
 
-
         const totalFee = durationInHours * Number(hourlyRate?.hourlyRate)
-        // console.log(totalFee);
 
         const result = await tx.booking.create({
             data: {

@@ -40,7 +40,6 @@ const updateBooking = async (req: Request, res: Response, next: NextFunction) =>
     try {
         const BookingId = req.params.bookingId as string
         const data = req.body
-        console.log(data);
         const result = await bookingService.updateBooking(data, BookingId)
         res.status(200).send(result)
     } catch (error: any) {

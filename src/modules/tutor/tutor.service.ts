@@ -3,7 +3,7 @@ import { prisma } from "../../lib/prisma"
 import { searchQuery } from "../../types/tutor/searchQuery"
 
 interface TutorPDataType {
-    name: string | null;
+    name: string;
 
     category_id: string | null;
     bio: string | null;
@@ -17,17 +17,14 @@ interface TutorPDataType {
 }
 
 
-const createTutorProfile = async (
-    data: TutorPDataType,
-    authorId: string) => {
-    const lowerCaseSub = data.subjects.map(sub => sub.toLowerCase())
+const createTutorProfile = async (data: { name: string }, authorId: string) => {
 
-    data.subjects = lowerCaseSub
     const isProfileExist = await prisma.tutorProfile.findUnique({
         where: {
             userId: authorId
         }
     })
+
 
     if (isProfileExist) {
         return { message: 'Your tutor profile already exist' }

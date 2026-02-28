@@ -29,8 +29,6 @@ export const userAuth = (...roles: UserRole[]) => {
                 emailVerified: session?.user.emailVerified
             }
 
-            // console.log(session);
-            // console.log(req.user.role);
             next()
         }
 

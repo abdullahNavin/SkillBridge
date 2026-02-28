@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { tutorService } from "./tutor.service";
 
-// TODO: UPDATE profile
+
 const createTutorProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = req.body
@@ -13,9 +13,10 @@ const createTutorProfile = async (req: Request, res: Response, next: NextFunctio
 
         const userId = req.user?.id as string
 
-        const { name, category_id, bio, image, yearsOfExperience, hourlyRate, qualifications, availability, subjects } = data
+        const { name } = data
 
-        const result = await tutorService.createTutorProfile({ name, category_id, bio, image, yearsOfExperience, hourlyRate, qualifications, availability, subjects }, userId)
+        const result = await tutorService.createTutorProfile({ name }, userId)
+
         res.status(200).json(result)
     }
     catch (error: any) {
@@ -53,7 +54,6 @@ const getAllTutors = async (req: Request, res: Response, next: NextFunction) => 
         const price = Number(req.query.price)
         const category_id = req.query.category_id as string
 
-        // console.log(req.user?.role);
 
         const payload = {
             search,

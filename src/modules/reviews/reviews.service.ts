@@ -15,7 +15,6 @@ import { ReviewType } from "../../types/review/reviewType"
 
 const createReview =
     async (data: ReviewType) => {
-        console.log(data);
         const result = await prisma.$transaction(async (tx) => {
             const booking = await tx.booking.findFirst({
                 where: {
@@ -25,7 +24,6 @@ const createReview =
 
                 }
             })
-            console.log(booking);
             if (!booking) {
                 return { message: "You can only review a tutor after completing a booking with them." }
             }

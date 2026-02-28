@@ -2,7 +2,7 @@ model TutorProfile {
     id                String     @id @default(uuid())
     category_id       String?
     bio               String?    @db.Text
-    name              String?
+    name              String
     image             String?
     rating            Float?     @default(0)
     totalReviews      Int?       @default(0)
@@ -10,7 +10,7 @@ model TutorProfile {
     user              User       @relation(fields: [userId], references: [id], onDelete: Cascade)
     category          Category?  @relation(fields: [category_id], references: [id], onDelete: Cascade)
     yearsOfExperience Int?
-    hourlyRate        Decimal    @db.Decimal(10, 2)
+    hourlyRate        Decimal?   @db.Decimal(10, 2)
     qualifications    String?    @db.Text
     availability      DateTime[]
     subjects          String[]   @db.Text
