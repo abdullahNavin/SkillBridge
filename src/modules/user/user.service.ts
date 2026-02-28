@@ -1,7 +1,6 @@
 import { prisma } from "../../lib/prisma"
 import { ReqUserT } from "../../types/user/reqUserTypes"
 import { UserRole } from "../../types/user/userRole"
-import { userController } from "./user.controller"
 
 const getUsers = async () => {
     const result = await prisma.user.findMany()

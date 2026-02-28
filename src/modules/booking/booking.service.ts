@@ -9,6 +9,13 @@ interface BookingDataType {
     tutorName: string
 }
 
+enum BookingStatus {
+    PENDING = "PENDING",
+    CONFIRMED = "CONFIRMED",
+    CANCELLED = "CANCELLED",
+    COMPLETED = "COMPLETED",
+}
+
 const createBooking = async (data: BookingDataType,
     studentId: string) => {
 
@@ -63,8 +70,19 @@ const viewStudentBooking = async (studentId: string) => {
     return result;
 }
 
+const updateBooking = async (data: { status: BookingStatus }, BookinId: string) => {
+    const result = await prisma.booking.update({
+        where: {
+            id: BookinId
+        },
+        data
+    })
+    return result;
+}
+
 export const bookingService = {
     createBooking,
     viewAllbooking,
-    viewStudentBooking
+    viewStudentBooking,
+    updateBooking
 }

@@ -62,7 +62,16 @@ const getTutorDashboardData = async (id: string) => {
         },
         include: {
             bookings: true,
-            reviews: true
+            reviews: true,
+            _count: {
+                select: {
+                    bookings: {
+                        where: {
+                            status: "COMPLETED"
+                        }
+                    },
+                }
+            }
         }
     })
     return result;

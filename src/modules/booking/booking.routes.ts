@@ -14,7 +14,11 @@ router.get('/',
     bookingController.viewAllBooking)
 
 router.get('/student-bookings',
-    userAuth(UserRole.STUDENT, UserRole.TUTOR),
+    userAuth(UserRole.STUDENT, UserRole.ADMIN),
     bookingController.viewStudentBooking)
+
+router.put('/update-bookings/:bookingId',
+    userAuth(UserRole.TUTOR),
+    bookingController.updateBooking)
 
 export const bookingRoutes = router
