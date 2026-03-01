@@ -7,6 +7,8 @@ const router: Router = Router()
 
 router.get('/users', userAuth(UserRole.STUDENT), userController.getUsers)
 
+router.get('/users/admin-dashboard-data', userAuth(UserRole.ADMIN), userController.getAdminDashboardData)
+
 router.get('/users/:id',
     userAuth(UserRole.ADMIN, UserRole.STUDENT, UserRole.TUTOR),
     userController.getUserById)

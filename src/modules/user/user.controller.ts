@@ -26,7 +26,17 @@ const getUserById = async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
+const getAdminDashboardData = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const result = await userService.getAdminDashboardData()
+        res.status(200).json(result)
+    } catch (error) {
+        next(error)
+    }
+}
+
 export const userController = {
     getUsers,
-    getUserById
+    getUserById,
+    getAdminDashboardData
 }
