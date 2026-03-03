@@ -62,67 +62,22 @@ const getAdminDashboardData = async () => {
     }
 }
 
+const deleteUser = async (id: string) => {
+    const result = await prisma.user.delete({
+        where: {
+            id
+        }
+    })
+    return result
+}
+
 
 
 export const userService = {
     getUsers,
     getUserById,
-    getAdminDashboardData
+    getAdminDashboardData,
+    deleteUser
+
 }
 
-
-/*
-const getTutorDashboardData = async (userId: string) => {
-
-    const tutor = await prisma.tutorProfile.findUnique({
-        where: { userId },
-        select: { id: true }
-    })
-
-    if (!tutor) return null
-
-    const [
-        totalBookings,
-        completedBookings,
-        pendingBookings,
-        totalReviews,
-        totalEarnings
-    ] = await Promise.all([
-        prisma.booking.count({
-            where: { tutorProfileId: tutor.id }
-        }),
-        prisma.booking.count({
-            where: {
-                tutorProfileId: tutor.id,
-                status: "COMPLETED"
-            }
-        }),
-        prisma.booking.count({
-            where: {
-                tutorProfileId: tutor.id,
-                status: "PENDING"
-            }
-        }),
-        prisma.review.count({
-            where: { tutorProfileId: tutor.id }
-        }),
-        prisma.booking.aggregate({
-            where: {
-                tutorProfileId: tutor.id,
-                status: "COMPLETED"
-            },
-            _sum: {
-                totalFee: true
-            }
-        })
-    ])
-
-    return {
-        totalBookings,
-        completedBookings,
-        pendingBookings,
-        totalReviews,
-        totalEarnings: totalEarnings._sum.totalFee || 0
-    }
-}
-*/

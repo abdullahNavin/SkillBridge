@@ -35,8 +35,20 @@ const getAdminDashboardData = async (req: Request, res: Response, next: NextFunc
     }
 }
 
+const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = req.params.id as string
+
+        const result = await userService.deleteUser(id)
+        res.status(200).json(result)
+    } catch (error: any) {
+        next(error)
+    }
+}
+
 export const userController = {
     getUsers,
     getUserById,
-    getAdminDashboardData
+    getAdminDashboardData,
+    deleteUser
 }
