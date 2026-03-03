@@ -43,9 +43,21 @@ const getAllCategories = async (req: Request, res: Response, next: NextFunction)
     }
 }
 
+const deleteCategory = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const categoryId = req.params.id as string
+
+        const result = await categoryService.deleteCategory(categoryId)
+        res.status(200).json(result)
+    } catch (error: any) {
+        next(error)
+    }
+}
+
 export const categoryController = {
     createCategory,
     updateCategory,
     getTutorProfileBycategoryId,
-    getAllCategories
+    getAllCategories,
+    deleteCategory
 }
