@@ -11,6 +11,8 @@ router.get('/users/admin-dashboard-data', userAuth(UserRole.ADMIN), userControll
 
 router.delete('/users/:id', userAuth(UserRole.ADMIN), userController.deleteUser)
 
+router.put('/user-update', userAuth(UserRole.STUDENT), userController.updateUser)
+
 router.get('/users/:id',
     userAuth(UserRole.ADMIN, UserRole.STUDENT, UserRole.TUTOR),
     userController.getUserById)

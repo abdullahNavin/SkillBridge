@@ -71,13 +71,24 @@ const deleteUser = async (id: string) => {
     return result
 }
 
+const updateUser = async (id: string, data: { name: string, image: string }) => {
+    const result = await prisma.user.update({
+        where: {
+            id
+        },
+        data
+    })
+    return result
+}
+
 
 
 export const userService = {
     getUsers,
     getUserById,
     getAdminDashboardData,
-    deleteUser
+    deleteUser,
+    updateUser
 
 }
 
