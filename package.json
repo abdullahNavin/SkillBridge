@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/server.ts",
     "seedAdmin": "tsx src/scripts/seedAdmin.ts",
-    "build": "npx prisma generate && tsc",
-    "start": "node dist/src/server.js"
+    "build": "npx prisma generate",
+    "start": "tsx src/server.ts"
   },
   "type": "module",
   "keywords": [],
@@ -19,9 +19,7 @@
     "@types/express": "^5.0.6",
     "@types/node": "^25.1.0",
     "@types/pg": "^8.16.0",
-    "prisma": "^7.3.0",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "prisma": "^7.3.0"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.3.0",
@@ -32,6 +30,8 @@
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "pg": "^8.18.0",
-    "save-dev": "0.0.1-security"
+    "save-dev": "0.0.1-security",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }
