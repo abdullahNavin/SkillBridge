@@ -70,64 +70,6 @@ SkillBridge-server/
 └── package.json
 ```
 
----
-
-## 🗄️ Database Schema
-
-```mermaid
-erDiagram
-    User ||--o| TutorProfile : "has"
-    User ||--o{ Session : "has"
-    User ||--o{ Account : "has"
-    User ||--o{ Booking : "books"
-    User ||--o{ Review : "writes"
-
-    TutorProfile ||--o{ Booking : "receives"
-    TutorProfile ||--o{ Review : "receives"
-    TutorProfile }o--o| Category : "belongs to"
-
-    User {
-        string id PK
-        string name
-        string email
-        boolean emailVerified
-        string role "STUDENT | ADMIN"
-        string status "ACTIVE"
-    }
-
-    TutorProfile {
-        string id PK
-        string name
-        string bio
-        float rating
-        int totalReviews
-        decimal hourlyRate
-        string[] subjects
-        boolean isAvailable
-    }
-
-    Booking {
-        string id PK
-        datetime schedule_start
-        datetime schedule_end
-        decimal totalFee
-        enum status "PENDING | CONFIRMED | CANCELLED | COMPLETED"
-    }
-
-    Review {
-        string id PK
-        int rating
-        string comment
-    }
-
-    Category {
-        string id PK
-        string name
-        string description
-    }
-```
-
----
 
 ## 🔌 API Routes
 
@@ -220,7 +162,5 @@ The project includes a **`render.yaml`** blueprint for one-click deployment to [
 - **Required env vars**: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `APP_URL`, `CLIENT_ID`, `CLIENT_SECRET`, `NODE_ENV`
 
 ---
+Live URL:https://skillbridge-6phn.onrender.com/
 
-## 📄 License
-
-This project is licensed under the **ISC License**.
